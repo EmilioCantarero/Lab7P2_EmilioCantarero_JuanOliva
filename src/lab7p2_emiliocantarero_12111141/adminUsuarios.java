@@ -38,6 +38,7 @@ public class adminUsuarios {
     }
 
     public void escribirArchivo() throws IOException {
+        ArrayList<Accesorio> ac;
         FileWriter fw = null;
         BufferedWriter bw = null;
         try {
@@ -47,7 +48,22 @@ public class adminUsuarios {
                 bw.write(t.getTipo() + "|");
                 bw.write(t.getUsername()+ "|");
                 bw.write(t.getContra() + "|");
-                bw.write(t.getEdad() + "|");
+                if (t.getTipo().equals("Comprador")){
+                    bw.write(t.getEdad() + "|");
+                    ac=((Comprador)t).getListaAccesorios();
+                    int contador=0;
+                    for (Accesorio a : ac) {
+                        if (contador<ac.size()-1){
+                            bw.write(a.toString()+"|");
+                        }else{
+                            bw.write(a.toString());
+                        }
+                        
+                    }
+                }else{
+                    bw.write(t.getEdad());
+                }
+                bw.newLine();
             }
             bw.flush();
         } catch (Exception ex) {
@@ -72,6 +88,9 @@ public class adminUsuarios {
                                         sc.nextInt()
                                      )
                         );
+                    }else{
+                        usuarios.add(new Comprador(tipo, sc.next(), sc.next(), sc.nextInt()));
+                        
                     }
                 }
             } catch (Exception ex) {

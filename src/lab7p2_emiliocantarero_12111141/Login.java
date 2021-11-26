@@ -62,6 +62,11 @@ public class Login extends javax.swing.JFrame {
         jSpinner1.setModel(new javax.swing.SpinnerNumberModel(18, 18, null, 1));
 
         jButton3.setText("Registrarme");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Comprador" }));
 
@@ -223,6 +228,11 @@ public class Login extends javax.swing.JFrame {
         jf_registro.setVisible(true);
         jf_registro.setLocationRelativeTo(this);
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        adminUsuarios a = new adminUsuarios("./Usuarios.txt");
+        
+    }//GEN-LAST:event_jButton3MouseClicked
 
     /**
      * @param args the command line arguments

@@ -53,7 +53,7 @@ public class Accesorio {
 
     @Override
     public String toString() {
-        return nombre;
+        return id + "|" + nombre + "|" + precio + "|" + cantidad;
     }
     
     public void generarId(){
