@@ -9,7 +9,15 @@ public class Comprador extends Usuario{
 
     public Comprador() {
         super();
+        this.asignarDinero();
     }
+
+    public Comprador(double dinero, String nombre, String username, int edad, String tipo) {
+        super(nombre, username, edad, tipo);
+        this.dinero = dinero;
+    }
+    
+    
 
     public ArrayList<Accesorio> getListaAccesorios() {
         return listaAccesorios;
@@ -47,7 +55,7 @@ public class Comprador extends Usuario{
     }
     
     public void setTipoUsuario(){
-        super.setTipo("Admins");
+        super.setTipo("Comprador");
     }
     
     

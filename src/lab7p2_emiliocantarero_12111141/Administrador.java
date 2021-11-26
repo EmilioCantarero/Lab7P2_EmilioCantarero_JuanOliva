@@ -10,8 +10,8 @@ public class Administrador extends Usuario{
         super();
     }
 
-    public Administrador(String nombre, String username, int edad) {
-        super(nombre, username, edad);
+    public Administrador(String nombre, String username, int edad, String tipo) {
+        super(nombre, username, edad, tipo);
     }
 
     public ArrayList<Accesorio> getAccesorios() {
@@ -27,6 +27,7 @@ public class Administrador extends Usuario{
         return super.toString();
     }
     
-    
-    
+    public void setTipoUsuario(){
+        super.setTipo("Administrador");
+    }
 }
