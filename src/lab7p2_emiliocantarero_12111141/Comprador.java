@@ -12,12 +12,11 @@ public class Comprador extends Usuario{
         this.asignarDinero();
     }
 
-    public Comprador(double dinero, String nombre, String username, int edad, String tipo) {
-        super(nombre, username, edad, tipo);
-        this.dinero = dinero;
+    public Comprador(String tipo, String username, String contra, int edad) {
+        super(tipo, username, contra, edad);
+        this.asignarDinero(); 
     }
-    
-    
+
 
     public ArrayList<Accesorio> getListaAccesorios() {
         return listaAccesorios;
@@ -37,7 +36,7 @@ public class Comprador extends Usuario{
 
     @Override
     public String toString() {
-        return super.getNombre();
+        return super.toString();
     }
 
     public boolean comprarAccesorio(Accesorio a){
