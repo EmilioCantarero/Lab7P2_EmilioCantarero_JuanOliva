@@ -18,7 +18,6 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         
-
     }
 
     /**
@@ -226,7 +225,7 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    int cont = 0;
+    
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
@@ -286,7 +285,7 @@ public class Login extends javax.swing.JFrame {
             public void run() {
 
                 new Login().setVisible(true);
-
+                
             }
         });
     }
