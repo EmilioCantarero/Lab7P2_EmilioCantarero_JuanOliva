@@ -1,6 +1,7 @@
 package lab7p2_emiliocantarero_12111141;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Comprador extends Usuario{
     private ArrayList<Accesorio> listaAccesorios = new ArrayList<Accesorio>();
@@ -37,6 +38,11 @@ public class Comprador extends Usuario{
         }else{
             return false;
         }
+    }
+    
+    public void asignarDinero(){
+        Random aleatorio = new Random();
+        dinero = 1000 + aleatorio.nextInt(7001);
     }
     
     
