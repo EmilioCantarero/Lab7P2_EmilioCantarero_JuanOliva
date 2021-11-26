@@ -8,6 +8,7 @@ public class Comprador extends Usuario{
     private double dinero;
 
     public Comprador() {
+        super();
     }
 
     public ArrayList<Accesorio> getListaAccesorios() {
@@ -32,7 +33,7 @@ public class Comprador extends Usuario{
     }
 
     public boolean comprarAccesorio(Accesorio a){
-        if (a.getPrecio()<= dinero) {
+        if (a.getPrecio()*1.15 <= dinero) {
             listaAccesorios.add(a);
             return true;
         }else{
@@ -43,6 +44,10 @@ public class Comprador extends Usuario{
     public void asignarDinero(){
         Random aleatorio = new Random();
         dinero = 1000 + aleatorio.nextInt(7001);
+    }
+    
+    public void setTipoUsuario(){
+        super.setTipo("Admins");
     }
     
     
