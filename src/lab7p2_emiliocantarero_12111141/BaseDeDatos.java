@@ -1,10 +1,17 @@
 package lab7p2_emiliocantarero_12111141;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class BaseDeDatos {
-    ArrayList<Accesorio> inventario = new ArrayList();
+    private ArrayList<Accesorio> inventario = new ArrayList();
+    private File archivo = null;
 
     public BaseDeDatos() {
     }
@@ -38,4 +45,43 @@ public class BaseDeDatos {
             }
         }
     }
+    
+    public void escribirArchivo() throws IOException {
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        try {
+            fw = new FileWriter(archivo, false);
+            bw = new BufferedWriter(fw);
+            for (Accesorio a : inventario) {
+                bw.write(a.getId()+";");
+                bw.write(a.getNombre()+";");
+                bw.write(a.getPrecio()+";");
+                bw.write(a.getCantidad()+";");
+            }
+            bw.flush();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        bw.close();
+        fw.close();
+    }
+    
+    public void cargarArchivo() throws FileNotFoundException {
+        Scanner sc = null;
+        inventario = new ArrayList();
+        if (archivo.exists()) {
+            try {
+                sc = new Scanner(archivo);
+                sc.useDelimiter(";");
+                while (sc.hasNext()) {
+                    listaCelulares.add(new Celular(sc.next(), 
+                            sc.next(), sc.nextDouble(), sc.nextInt()));
+                    }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            sc.close();
+        }
+    }
+    
 }
