@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 
 public class Administrador extends Usuario{
-    ArrayList<Accesorio> accesorios=new ArrayList();
 
     public Administrador() {
         super();
@@ -12,14 +11,6 @@ public class Administrador extends Usuario{
 
     public Administrador(String nombre, String username, int edad, String tipo) {
         super(nombre, username, edad, tipo);
-    }
-
-    public ArrayList<Accesorio> getAccesorios() {
-        return accesorios;
-    }
-
-    public void setAccesorios(ArrayList<Accesorio> accesorios) {
-        this.accesorios = accesorios;
     }
 
     @Override
