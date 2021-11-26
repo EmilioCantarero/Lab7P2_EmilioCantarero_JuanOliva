@@ -1,26 +1,19 @@
 package lab7p2_emiliocantarero_12111141;
 public abstract class Usuario {
-    private String nombre;
+
     private String username;
+    private String contra;
     private int edad;
     private String tipo;
 
     public Usuario() {
     }
     
-    public Usuario(String nombre, String username, int edad, String tipo) {
-        this.nombre = nombre;
+    public Usuario(String tipo, String username,String contra, int edad) {
         this.username = username;
+        this.contra=contra;
         this.edad = edad;
         this.tipo = tipo;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public String getUsername() {
@@ -29,6 +22,14 @@ public abstract class Usuario {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getContra() {
+        return contra;
+    }
+
+    public void setContra(String contra) {
+        this.contra = contra;
     }
 
     public int getEdad() {
@@ -51,7 +52,7 @@ public abstract class Usuario {
 
     @Override
     public String toString() {
-        return nombre;
+        return username;
     }
     
     public abstract void setTipoUsuario();

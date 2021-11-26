@@ -9,10 +9,11 @@ public class Administrador extends Usuario{
         super();
     }
 
-    public Administrador(String nombre, String username, int edad, String tipo) {
-        super(nombre, username, edad, tipo);
+    public Administrador(String tipo, String username, String contra, int edad) {
+        super(tipo, username, contra, edad);
     }
 
+    
     @Override
     public String toString() {
         return super.toString();
