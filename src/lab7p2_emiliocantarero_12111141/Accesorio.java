@@ -1,5 +1,7 @@
 package lab7p2_emiliocantarero_12111141;
 
+import java.util.Random;
+
 
 public class Accesorio {
     private int id;
@@ -54,5 +56,8 @@ public class Accesorio {
         return nombre;
     }
     
-    
+    public void generarId(){
+        Random r=new Random();
+        id=100000+r.nextInt(200000);
+    }
 }
