@@ -48,22 +48,14 @@ public class adminUsuarios {
                 bw.write(t.getTipo() + "|");
                 bw.write(t.getUsername()+ "|");
                 bw.write(t.getContra() + "|");
+                bw.write(t.getEdad() + "|");
                 if (t.getTipo().equals("Comprador")){
-                    bw.write(t.getEdad() + "|");
                     ac=((Comprador)t).getListaAccesorios();
                     int contador=0;
                     for (Accesorio a : ac) {
-                        if (contador<ac.size()-1){
-                            bw.write(a.toString()+"|");
-                        }else{
-                            bw.write(a.toString());
-                        }
-                        
+                        bw.write("Accesorio|" + a.toString()+"|");
                     }
-                }else{
-                    bw.write(t.getEdad());
                 }
-                bw.newLine();
             }
             bw.flush();
         } catch (Exception ex) {
@@ -75,6 +67,7 @@ public class adminUsuarios {
     public void cargarArchivo() {
         Scanner sc = null;
         usuarios = new ArrayList();
+        ArrayList<Accesorio>accesorios=new ArrayList();
         if (archivo.exists()) {
             try {
                 sc = new Scanner(archivo);
@@ -90,7 +83,11 @@ public class adminUsuarios {
                         );
                     }else{
                         usuarios.add(new Comprador(tipo, sc.next(), sc.next(), sc.nextInt()));
-                        
+                        String palabra=sc.next();
+                        if (palabra.equals("Accesorio")){
+                            accesorios.add(new Accesorio(sc.nextInt(), sc.next(), sc.nextDouble(), sc.nextInt()));
+                        }
+                        ((Comprador)usuarios.get(usuarios.size()-1)).setListaAccesorios(accesorios);
                     }
                 }
             } catch (Exception ex) {
