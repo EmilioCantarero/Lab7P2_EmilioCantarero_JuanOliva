@@ -74,9 +74,8 @@ public class BaseDeDatos {
                 sc = new Scanner(archivo);
                 sc.useDelimiter(";");
                 while (sc.hasNext()) {
-                    listaCelulares.add(new Celular(sc.next(), 
-                            sc.next(), sc.nextDouble(), sc.nextInt()));
-                    }
+                    inventario.add(new Accesorio(sc.nextInt(), sc.next(), sc.nextDouble(), sc.nextInt()));
+                }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
