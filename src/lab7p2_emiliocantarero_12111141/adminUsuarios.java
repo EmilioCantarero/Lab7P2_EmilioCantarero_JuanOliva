@@ -42,18 +42,18 @@ public class adminUsuarios {
         FileWriter fw = null;
         BufferedWriter bw = null;
         try {
-            fw = new FileWriter(archivo, false);
+            fw = new FileWriter(archivo, true);
             bw = new BufferedWriter(fw);
             for (Usuario t : usuarios) {
-                bw.write(t.getTipo() + "|");
-                bw.write(t.getUsername()+ "|");
-                bw.write(t.getContra() + "|");
-                bw.write(t.getEdad() + "|");
+                bw.write(t.getTipo() + ",");
+                bw.write(t.getUsername()+ ",");
+                bw.write(t.getContra() + ",");
+                bw.write(t.getEdad() + ",");
                 if (t.getTipo().equals("Comprador")){
                     ac=((Comprador)t).getListaAccesorios();
                     int contador=0;
                     for (Accesorio a : ac) {
-                        bw.write("Accesorio|" + a.toString()+"|");
+                        bw.write("Accesorio," + a.toString()+",");
                     }
                 }
             }
@@ -71,9 +71,10 @@ public class adminUsuarios {
         if (archivo.exists()) {
             try {
                 sc = new Scanner(archivo);
-                sc.useDelimiter("|");
+                sc.useDelimiter(",");
                 while (sc.hasNext()) {
                     String tipo=sc.next();
+                    
                     if (tipo.equals("Administrador")){
                         usuarios.add(new Administrador(tipo,
                                         sc.next(),
@@ -83,11 +84,11 @@ public class adminUsuarios {
                         );
                     }else{
                         usuarios.add(new Comprador(tipo, sc.next(), sc.next(), sc.nextInt()));
-                        String palabra=sc.next();
+                        /*String palabra=sc.next();
                         if (palabra.equals("Accesorio")){
                             accesorios.add(new Accesorio(sc.nextInt(), sc.next(), sc.nextDouble(), sc.nextInt()));
                         }
-                        ((Comprador)usuarios.get(usuarios.size()-1)).setListaAccesorios(accesorios);
+                        ((Comprador)usuarios.get(usuarios.size()-1)).setListaAccesorios(accesorios);*/
                     }
                 }
             } catch (Exception ex) {
