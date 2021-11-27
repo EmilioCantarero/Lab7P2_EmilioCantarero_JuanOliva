@@ -46,6 +46,7 @@ public class Login extends javax.swing.JFrame {
         js_e = new javax.swing.JSpinner();
         jButton3 = new javax.swing.JButton();
         cb_t = new javax.swing.JComboBox<>();
+        jb_cancel = new javax.swing.JButton();
         jf_admin = new javax.swing.JFrame();
         jPanel2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
@@ -119,6 +120,13 @@ public class Login extends javax.swing.JFrame {
 
         cb_t.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Comprador" }));
 
+        jb_cancel.setText("Cancelar");
+        jb_cancel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jb_cancelMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -135,7 +143,7 @@ public class Login extends javax.swing.JFrame {
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel6)))
-                        .addGap(0, 62, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,9 +160,11 @@ public class Login extends javax.swing.JFrame {
                                     .addComponent(cb_t, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(79, 79, 79)
+                .addGap(25, 25, 25)
                 .addComponent(jButton3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jb_cancel)
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,9 +185,11 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(js_e, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cb_t, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addComponent(jButton3)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(jb_cancel))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jf_registroLayout = new javax.swing.GroupLayout(jf_registro.getContentPane());
@@ -199,6 +211,11 @@ public class Login extends javax.swing.JFrame {
         tf_nombre.setOpaque(false);
 
         jButton4.setText("Cerrar Sesión");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
 
         jLabel9.setText("Nombre de accesorio");
 
@@ -356,9 +373,16 @@ public class Login extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -485,9 +509,16 @@ public class Login extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane3.setViewportView(jTable3);
@@ -512,6 +543,11 @@ public class Login extends javax.swing.JFrame {
         jTabbedPane2.addTab("Comprar", jPanel9);
 
         jButton8.setText("Cerrar Sesión");
+        jButton8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton8MouseClicked(evt);
+            }
+        });
 
         jLabel18.setText("Dinero");
 
@@ -668,26 +704,33 @@ public class Login extends javax.swing.JFrame {
         int e=Integer.parseInt(js_e.getValue().toString());
         String t=cb_t.getSelectedItem().toString();
         
-        if (t.equals("Administrador")){
-            Usuario us=new Administrador(t, u, c, e);
-            a.getUsuarios().add(us);
-            try {
-                a.escribirArchivo();
-            } catch (IOException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        if (verificarUser(u)==true){
+            if (t.equals("Administrador")){
+                Usuario us=new Administrador(t, u, c, e);
+                a.getUsuarios().add(us);
+                try {
+                    a.escribirArchivo();
+                } catch (IOException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else{
+                Usuario us=new Comprador(t, u, c, e);
+                a.getUsuarios().add(us);
+                try {
+                    a.escribirArchivo();
+                } catch (IOException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                tf_c.setText("");
+                tf_u.setText("");
+                jf_registro.setVisible(false);
+                this.setVisible(true);
+        }
         }else{
-            Usuario us=new Comprador(t, u, c, e);
-            a.getUsuarios().add(us);
-            try {
-                a.escribirArchivo();
-            } catch (IOException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            JOptionPane.showMessageDialog(null, "Este nombre de usuario ya existe");
         }
         
-        jf_registro.setVisible(false);
-        this.setVisible(true);
+        
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
@@ -696,9 +739,9 @@ public class Login extends javax.swing.JFrame {
         String u=tf_usuario.getText();
         String c=tf_contra.getText();
         System.out.println(u + c);
+        int cont=0;
         for (Usuario t : a.getUsuarios()) {
-            System.out.println(t.getUsername());
-            System.out.println(t.getContra());
+            
             if ((u.equals(t.getUsername())) && (c.equals(t.getContra()))){
                 if (t instanceof Administrador){
                     jf_admin.pack();
@@ -706,6 +749,8 @@ public class Login extends javax.swing.JFrame {
                     jf_admin.setLocationRelativeTo(this);
                     
                     tf_nombre.setText(t.getUsername());
+                    tf_contra.setText("");
+                    tf_usuario.setText("");
                 }
                 else{
                     String d=String.valueOf(((Comprador)t).getDinero());
@@ -715,11 +760,32 @@ public class Login extends javax.swing.JFrame {
 
                     jt_compra.setText(t.getUsername());
                     jt_dinero.setText(d);
+                }
             }
-            }
+            
             
         }
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
+        // TODO add your handling code here:
+        jf_compra.setVisible(false);
+        this.setVisible(true);
+    }//GEN-LAST:event_jButton8MouseClicked
+
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+        // TODO add your handling code here:
+        jf_admin.setVisible(false);
+        this.setVisible(true);
+    }//GEN-LAST:event_jButton4MouseClicked
+
+    private void jb_cancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_cancelMouseClicked
+        // TODO add your handling code here:
+        jf_registro.setVisible(false);
+        this.setVisible(true);
+        tf_c.setText("");
+        tf_u.setText("");
+    }//GEN-LAST:event_jb_cancelMouseClicked
 
     /**
      * @param args the command line arguments
@@ -756,6 +822,18 @@ public class Login extends javax.swing.JFrame {
             }
             
         });
+    }
+    
+    public boolean verificarUser(String u){
+        adminUsuarios a =new adminUsuarios("./Usuarios.txt");
+        a.cargarArchivo();
+        for (Usuario t : a.getUsuarios()) {
+            if (u.equals(t.getUsername())){
+                return false;
+                
+            }
+        }
+        return true;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -811,6 +889,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
+    private javax.swing.JButton jb_cancel;
     private javax.swing.JFrame jf_admin;
     private javax.swing.JFrame jf_compra;
     private javax.swing.JFrame jf_registro;
@@ -824,3 +903,4 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextField tf_usuario;
     // End of variables declaration//GEN-END:variables
 }
+
